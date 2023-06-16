@@ -8,7 +8,7 @@
   </parent>
   <groupId>io.quarkiverse.sshd</groupId>
   <artifactId>quarkus-sshd-parent</artifactId>
-  <version>1.0.0</version>
+  <version>999-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Quarkus Apache sshd Quarkus extention - Parent</name>
   <modules>
@@ -21,7 +21,7 @@
     <connection>scm:git:git@github.com:quarkiverse/quarkus-sshd.git</connection>
     <developerConnection>scm:git:git@github.com:quarkiverse/quarkus-sshd.git</developerConnection>
     <url>https://github.com/quarkiverse/quarkus-sshd</url>
-    <tag>1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
