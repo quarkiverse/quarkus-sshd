@@ -7,15 +7,11 @@
     <version>999-SNAPSHOT</version>
   </parent>
   <artifactId>quarkus-sshd-deployment</artifactId>
-  <name>Quarkus Apache sshd Quarkus extention - Deployment</name>
+  <name>Quarkus Apache SSHD - Deployment</name>
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-core-deployment</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-arc-deployment</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>

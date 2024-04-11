@@ -7,7 +7,7 @@
     <version>999-SNAPSHOT</version>
   </parent>
   <artifactId>quarkus-sshd</artifactId>
-  <name>Quarkus Apache sshd Quarkus extension - Runtime</name>
+  <name>Quarkus Apache SSHD - Runtime</name>
   <description>extension for apache sshd</description>
   <dependencies>
     <dependency>
@@ -17,10 +17,6 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-arc</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -36,7 +32,7 @@
     </dependency>
     <dependency>
       <groupId>org.graalvm.sdk</groupId>
-      <artifactId>graal-sdk</artifactId>
+      <artifactId>nativeimage</artifactId>
     </dependency>
   </dependencies>
   <build>

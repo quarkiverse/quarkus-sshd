@@ -3,7 +3,6 @@ package io.quarkiverse.sshd.deployment;
 import java.security.KeyFactory;
 import java.security.KeyPairGenerator;
 import java.security.Signature;
-import java.util.Arrays;
 
 import javax.crypto.KeyAgreement;
 import javax.crypto.Mac;
@@ -48,12 +47,10 @@ class SshdProcessor {
 
     @BuildStep
     void sessionProxy(BuildProducer<NativeImageProxyDefinitionBuildItem> proxiesProducer) {
-        for (String s : Arrays.asList(
+        proxiesProducer.produce(new NativeImageProxyDefinitionBuildItem(
                 SessionListener.class.getName(),
                 ChannelListener.class.getName(),
-                PortForwardingEventListener.class.getName())) {
-            proxiesProducer.produce(new NativeImageProxyDefinitionBuildItem(s));
-        }
+                PortForwardingEventListener.class.getName()));
     }
 
 }
