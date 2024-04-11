@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>quarkus-sshd-docs</artifactId>
-    <name>Quarkus Apache sshd Quarkus extention - Documentation</name>
+    <name>Quarkus Apache SSHD - Documentation</name>
 
     <dependencies>
         <!-- Make sure the doc is built after the other artifacts -->
