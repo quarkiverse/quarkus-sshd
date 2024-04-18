@@ -1,23 +1,16 @@
 package io.quarkiverse.sshd.deployment;
 
-import java.security.KeyFactory;
-import java.security.KeyPairGenerator;
-import java.security.Signature;
-
-import javax.crypto.KeyAgreement;
-import javax.crypto.Mac;
-
-import org.apache.sshd.common.channel.ChannelListener;
-import org.apache.sshd.common.forward.PortForwardingEventListener;
+import org.apache.sshd.common.io.IoServiceFactoryFactory;
 import org.apache.sshd.common.io.nio2.Nio2ServiceFactoryFactory;
-import org.apache.sshd.common.session.SessionListener;
+import org.apache.sshd.common.util.security.bouncycastle.BouncyCastleSecurityProviderRegistrar;
+import org.apache.sshd.common.util.security.eddsa.EdDSASecurityProviderRegistrar;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import io.quarkus.security.deployment.BouncyCastleProviderBuildItem;
 
 class SshdProcessor {
 
@@ -30,27 +23,23 @@ class SshdProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        reflectiveClasses.produce(
-                ReflectiveClassBuildItem.builder(KeyPairGenerator.class,
-                        KeyAgreement.class,
-                        KeyFactory.class,
-                        Signature.class,
-                        Mac.class).methods(true).build());
-        reflectiveClasses.produce(
-                ReflectiveClassBuildItem.builder(Nio2ServiceFactoryFactory.class).build());
+        // Register Providers for reflection
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
+                BouncyCastleSecurityProviderRegistrar.class,
+                EdDSASecurityProviderRegistrar.class)
+                .build());
     }
 
     @BuildStep
-    NativeImageResourceBuildItem nativeImageResourceBuildItem() {
-        return new NativeImageResourceBuildItem("META-INF/services/org.apache.sshd.common.io.IoServiceFactoryFactory");
+    ServiceProviderBuildItem registerDefaultServiceFactory() {
+        return new ServiceProviderBuildItem(IoServiceFactoryFactory.class.getName(), Nio2ServiceFactoryFactory.class.getName());
     }
 
+    /**
+     * Apache SSHD requires BouncyCastle to be registered as a security provider.
+     */
     @BuildStep
-    void sessionProxy(BuildProducer<NativeImageProxyDefinitionBuildItem> proxiesProducer) {
-        proxiesProducer.produce(new NativeImageProxyDefinitionBuildItem(
-                SessionListener.class.getName(),
-                ChannelListener.class.getName(),
-                PortForwardingEventListener.class.getName()));
+    BouncyCastleProviderBuildItem produceBouncyCastleProvider() {
+        return new BouncyCastleProviderBuildItem();
     }
-
 }

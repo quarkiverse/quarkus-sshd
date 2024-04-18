@@ -1,6 +1,8 @@
 package io.quarkiverse.sshd;
 
+import static io.restassured.RestAssured.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import java.io.IOException;
 
@@ -26,5 +28,13 @@ public class SmokeTest {
                 assertThat(clientSession).isNotNull();
             }
         }
+    }
+
+    @Test
+    void shouldWorkInJAXRS() {
+        when().get("/sshd")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
     }
 }
