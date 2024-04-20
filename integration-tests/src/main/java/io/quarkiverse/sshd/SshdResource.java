@@ -10,6 +10,7 @@ public class SshdResource {
 
     @GET
     public boolean get() throws Exception {
+        System.out.println(SecurityUtils.getRegisteredProviders());
         return SecurityUtils.isEDDSACurveSupported();
     }
 }

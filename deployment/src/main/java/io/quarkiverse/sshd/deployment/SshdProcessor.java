@@ -2,8 +2,8 @@ package io.quarkiverse.sshd.deployment;
 
 import org.apache.sshd.common.io.IoServiceFactoryFactory;
 import org.apache.sshd.common.io.nio2.Nio2ServiceFactoryFactory;
-import org.apache.sshd.common.util.security.bouncycastle.BouncyCastleSecurityProviderRegistrar;
-import org.apache.sshd.common.util.security.eddsa.EdDSASecurityProviderRegistrar;
+import org.apache.sshd.common.util.security.SecurityProviderRegistrar;
+import org.apache.sshd.common.util.security.SecurityUtils;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -23,16 +23,18 @@ class SshdProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        // Register Providers for reflection
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
-                BouncyCastleSecurityProviderRegistrar.class,
-                EdDSASecurityProviderRegistrar.class)
+                "net.i2p.crypto.eddsa.EdDSAKey",
+                "net.i2p.crypto.eddsa.EdDSASecurityProvider")
                 .build());
     }
 
     @BuildStep
-    ServiceProviderBuildItem registerDefaultServiceFactory() {
-        return new ServiceProviderBuildItem(IoServiceFactoryFactory.class.getName(), Nio2ServiceFactoryFactory.class.getName());
+    void registerDefaultServiceFactory(BuildProducer<ServiceProviderBuildItem> serviceProviders) {
+        serviceProviders.produce(new ServiceProviderBuildItem(IoServiceFactoryFactory.class.getName(),
+                Nio2ServiceFactoryFactory.class.getName()));
+        serviceProviders.produce(new ServiceProviderBuildItem(SecurityProviderRegistrar.class.getName(),
+                SecurityUtils.DEFAULT_SECURITY_PROVIDER_REGISTRARS));
     }
 
     /**
@@ -40,6 +42,7 @@ class SshdProcessor {
      */
     @BuildStep
     BouncyCastleProviderBuildItem produceBouncyCastleProvider() {
+
         return new BouncyCastleProviderBuildItem();
     }
 }
