@@ -27,7 +27,7 @@
     </scm>
 
     <properties>
-        <quarkus.version>3.8.3</quarkus.version>
+        <quarkus.version>3.11.1</quarkus.version>
         <version.sshd>2.11.0</version.sshd>
         <version.eddsa>0.3.0</version.eddsa>
         <skipITs>true</skipITs>
