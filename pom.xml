@@ -26,7 +26,6 @@
     <properties>
         <quarkus.version>3.27.2</quarkus.version>
         <version.sshd>2.17.1</version.sshd>
-        <version.eddsa>0.3.0</version.eddsa>
         <skipITs>true</skipITs>
     </properties>
 
@@ -49,11 +48,6 @@
                 <groupId>org.apache.sshd</groupId>
                 <artifactId>sshd-common</artifactId>
                 <version>${version.sshd}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.i2p.crypto</groupId>
-                <artifactId>eddsa</artifactId>
-                <version>${version.eddsa}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
