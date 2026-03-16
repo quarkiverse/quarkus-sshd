@@ -24,8 +24,8 @@
     </scm>
 
     <properties>
-        <quarkus.version>3.8.3</quarkus.version>
-        <version.sshd>2.11.0</version.sshd>
+        <quarkus.version>3.27.2</quarkus.version>
+        <version.sshd>2.17.1</version.sshd>
         <version.eddsa>0.3.0</version.eddsa>
         <skipITs>true</skipITs>
     </properties>
@@ -42,6 +42,12 @@
             <dependency>
                 <groupId>org.apache.sshd</groupId>
                 <artifactId>sshd-core</artifactId>
+                <version>${version.sshd}</version>
+            </dependency>
+            <!-- workaround for issue : https://github.com/quarkiverse/quarkus-sshd/issues/94 -->
+            <dependency>
+                <groupId>org.apache.sshd</groupId>
+                <artifactId>sshd-common</artifactId>
                 <version>${version.sshd}</version>
             </dependency>
             <dependency>
