@@ -83,8 +83,8 @@
             </build>
             <properties>
                 <skipITs>false</skipITs>
-                <quarkus.package.type>native</quarkus.package.type>
-                <quarkus.native.additional-build-args>--initialize-at-run-time=org.apache.activemq.artemis.api.core.ActiveMQBuffers\,org.apache.activemq.artemis.utils.RandomUtil</quarkus.native.additional-build-args>
+                <quarkus.native.enabled>true</quarkus.native.enabled>
+                <quarkus.package.jar.enabled>false</quarkus.package.jar.enabled>
             </properties>
         </profile>
     </profiles>
