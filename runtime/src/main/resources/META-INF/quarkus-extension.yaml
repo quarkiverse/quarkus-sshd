@@ -1,9 +1,13 @@
-name: Apache sshd Quarkus extension
-#description: extension for apache sshd
+name: "Apache SSHD"
+description: "Provides GraalVM native image support for Apache Mina SSHD"
 metadata:
-#  keywords:
-#    - sshd
-#  guide: https://quarkiverse.github.io/quarkiverse-docs/sshd/dev/
-#  categories:
-#    - "miscellaneous"
-#  status: "preview"
+  keywords:
+    - "sshd"
+    - "ssh"
+    - "mina"
+    - "native"
+  guide: "https://quarkiverse.github.io/quarkiverse-docs/sshd/dev/"
+  categories:
+    - "network"
+    - "security"
+  status: "preview"
