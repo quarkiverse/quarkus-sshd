@@ -82,5 +82,17 @@
                 <module>integration-tests</module>
             </modules>
         </profile>
+        <profile>
+            <id>examples</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>!true</value>
+                </property>
+            </activation>
+            <modules>
+                <module>examples</module>
+            </modules>
+        </profile>
     </profiles>
 </project>
