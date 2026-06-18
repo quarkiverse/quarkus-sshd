@@ -10,8 +10,7 @@ This extension provide the native compilation support for the [Apache Mina SSHD 
 - ✅ Native image support for Apache Mina SSHD
 - ✅ Automatic registration of required reflection classes
 - ✅ Support for SSH client and server implementations
-- ✅ BouncyCastle integration for advanced cryptographic algorithms
-- ✅ Compatible with EdDSA, RSA, and other key types
+- ✅ BouncyCastle integration for cryptographic algorithms (RSA, EdDSA, ECDSA, and more)
 
 Initially inspired by [camel-quarkus sshd](https://github.com/apache/camel-quarkus/tree/4e00dbc2c865141de3e1afd2cf853f7d15197145/extensions/ssh) and [camel-quarkus bouncycastle](https://github.com/apache/camel-quarkus/tree/4e00dbc2c865141de3e1afd2cf853f7d15197145/extensions-support/bouncycastle/runtime/src/main/java/org/apache/camel/quarkus/support/bouncycastle).
 
