@@ -3,6 +3,7 @@ package io.quarkiverse.sshd.deployment;
 import java.security.KeyFactory;
 import java.security.KeyPairGenerator;
 import java.security.Signature;
+import java.util.List;
 
 import javax.crypto.KeyAgreement;
 import javax.crypto.Mac;
@@ -18,6 +19,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class SshdProcessor {
 
@@ -46,11 +48,20 @@ class SshdProcessor {
     }
 
     @BuildStep
+    void runtimeInit(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        // JceRandom's Cache inner class hold static SecureRandom instances created at
+        // class initialization time, which are not allowed in the native image heap.
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("org.apache.sshd.common.random.JceRandom$Cache"));
+    }
+
+    @BuildStep
     void sessionProxy(BuildProducer<NativeImageProxyDefinitionBuildItem> proxiesProducer) {
-        proxiesProducer.produce(new NativeImageProxyDefinitionBuildItem(
+        for (String s : List.of(
                 SessionListener.class.getName(),
                 ChannelListener.class.getName(),
-                PortForwardingEventListener.class.getName()));
+                PortForwardingEventListener.class.getName())) {
+            proxiesProducer.produce(new NativeImageProxyDefinitionBuildItem(s));
+        }
     }
 
 }

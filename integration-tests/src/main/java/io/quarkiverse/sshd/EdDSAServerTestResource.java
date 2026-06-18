@@ -44,8 +44,8 @@ public class EdDSAServerTestResource implements QuarkusTestResourceLifecycleMana
             sshd.setHost("localhost");
             sshd.start();
             return Map.of(
-                    "quarkiverse.sshd.eddsa.host", sshd.getHost(),
-                    "quarkiverse.sshd.eddsa.port", Integer.toString(sshd.getPort()));
+                    "quarkiverse.sshd.host", sshd.getHost(),
+                    "quarkiverse.sshd.port", Integer.toString(sshd.getPort()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
